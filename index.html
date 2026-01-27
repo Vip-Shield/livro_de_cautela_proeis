@@ -201,11 +201,40 @@ th {
 <th>GH</th><th>RG</th><th>Nome</th><th>Escala</th><th>Nº Arma</th><th>Modelo</th>
 <th>Munições</th><th>Carregadores</th>
 <th>Data Ativ.</th><th>Data Caut.</th><th>Hora Caut.</th>
-<th>Data Ent.</th><th>Hora Ent.</th><th>RUMB</th><th>Status</th><th>Ação</th>
+<th>Data Ent.</th><th>Hora Ent.</th><th>RUMB</th><th>RUMB ENTREGA</th>
+<th>Status</th><th>Ação</th>
 </tr>
 </thead>
 <tbody></tbody>
 </table>
+
+<script>
+const escalaRUMB = [
+  { nome: "LACERDA", inicio: "2026-01-23T05:00", fim: "2026-01-23T17:00" },
+  { nome: "R. SIMÕES", inicio: "2026-01-23T17:00", fim: "2026-01-24T05:00" },
+
+  { nome: "ALACRINO", inicio: "2026-01-24T05:00", fim: "2026-01-24T17:00" },
+  { nome: "LACERDA", inicio: "2026-01-24T17:00", fim: "2026-01-25T05:00" },
+
+  { nome: "TRIUMPHO", inicio: "2026-01-25T05:00", fim: "2026-01-25T17:00" },
+  { nome: "ALACRINO", inicio: "2026-01-25T17:00", fim: "2026-01-26T05:00" },
+
+  { nome: "DAN", inicio: "2026-01-26T05:00", fim: "2026-01-26T17:00" },
+  { nome: "TRIUMPHO", inicio: "2026-01-26T17:00", fim: "2026-01-27T05:00" },
+
+  { nome: "R. SIMÕES", inicio: "2026-01-27T05:00", fim: "2026-01-27T17:00" },
+  { nome: "DAN", inicio: "2026-01-27T17:00", fim: "2026-01-28T05:00" }
+];
+
+function obterRUMBAtual() {
+  const agora = new Date();
+  const turno = escalaRUMB.find(e =>
+    agora >= new Date(e.inicio) && agora <= new Date(e.fim)
+  );
+  return turno ? turno.nome : "FORA DA ESCALA";
+}
+</script>
+
 
 <script>
 const form = document.getElementById("formCautela");
@@ -237,7 +266,9 @@ function render() {
 <td>${d.dataE || ""}</td>
 <td>${d.horaE || ""}</td>
 <td>${d.rumb}</td>
+<td>${d.rumbEntrega || ""}</td>
 <td>${d.status}</td>
+
 <td>
   ${d.status === "Cautelado"
     ? `<button onclick="entregar(${i})">Entregar</button>`
@@ -277,14 +308,16 @@ form.onsubmit = e => {
 
 
 function entregar(i) {
-  dados[i].dataE = new Date().toLocaleDateString();
-  dados[i].horaE = new Date().toLocaleTimeString().slice(0,5);
+  const agora = new Date();
+
+  dados[i].dataE = agora.toLocaleDateString();
+  dados[i].horaE = agora.toLocaleTimeString().slice(0,5);
+  dados[i].rumbEntrega = obterRUMBAtual();
   dados[i].status = "Entregue";
+
   salvar();
   render();
 }
-
-render();
 
 
 function mostrarAbertas() {
@@ -316,6 +349,7 @@ function mostrarAbertas() {
 }
 
 </script>
+
 
 </body>
 </html>
