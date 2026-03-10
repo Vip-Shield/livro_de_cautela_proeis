@@ -2,354 +2,595 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Livro de Cautela Permanente - RUMB</title>
+<title>Livro de Cautela PROEIS - RUMB</title>
+    <link rel="shortcut icon" type="imagex/png" href="../IMAGENS/caveira.ico">
 
 <style>
-
-.header {
-  display: grid;
-  grid-template-columns: 80px 1fr 80px;
-  align-items: center;
-  border-bottom: 2px solid #1f3c88;
-  padding-bottom: 10px;
-}
-
-.logo-esq img {
-  width: 65px;
-}
-
-.logo-dir img {
-  width: 65px;
-}
-
-.titulo h1 {
-  text-align: center;
-  font-size: 20px;
-  margin: 0;
-  letter-spacing: 1px;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: #0d1b2a;
-  color: #fff;
-  padding: 20px;
-}
-
-h1 {
-  text-align: center;
-}
-
-form, table {
-  width: 100%;
-  margin-top: 20px;
-}
-
-input, select {
-  width: 100%;
-  padding: 6px;
-  margin: 4px 0;
-}
-
-button {
-  padding: 10px;
-  background: #1b9aaa;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-button:hover {
-  background: #147a85;
-}
-
-table {
-  border-collapse: collapse;
-  font-size: 12px;
-}
-
-th, td {
-  border: 1px solid #555;
-  padding: 6px;
-  text-align: center;
-}
-
-th {
-  background: #1f3c88;
-}
-
-.entregue {
-  background: #14532d;
-}
-
-.cautelado {
-  background: #7c2d12;
-}
-
-
-@media print {
-  body {
-    background: white;
-    color: black;
-    font-size: 10px;
+  /* ESTILO GERAL */
+  body { 
+    font-family: 'Segoe UI', Arial, sans-serif; 
+    background: #001f3f; 
+    color: #fff; 
+    padding: 20px; 
+    padding-top: 130px; 
+    font-size: 11px; 
+  }
+  
+  /* CABEÇALHO FIXO */
+  .header { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    background: #001f3f; 
+    z-index: 1000; 
+    box-sizing: border-box; 
+    padding: 10px 20px;
+    display: grid; 
+    grid-template-columns: 70px 1fr 70px; 
+    align-items: center; 
+    border-bottom: 3px solid #0074D9; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   }
 
-  button, form {
-    display: none;
+  .titulo h1 { text-align: center; font-size: 20px; margin: 0; color: #f0f0f0; text-transform: uppercase; letter-spacing: 1px; }
+  .titulo p { text-align: center; margin: 5px 0; color: #39CCCC; font-weight: bold; }
+
+  /* FORMULÁRIO */
+  .form-container { background: #001226; padding: 20px; border-radius: 8px; border: 1px solid #0074D9; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+  
+  .bloco-titulo { 
+    background: linear-gradient(90deg, #003366, #001f3f); 
+    color: #fff; 
+    padding: 6px; 
+    font-weight: bold; 
+    text-align: center; 
+    margin: 15px 0 10px 0; 
+    border-left: 5px solid #39CCCC;
+    text-transform: uppercase; 
+    font-size: 12px;
   }
 
-  table {
-    font-size: 9px;
+  .grid-campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+  .campo-grupo { display: flex; flex-direction: column; }
+  
+  label { font-size: 10px; margin-bottom: 4px; color: #7FDBFF; font-weight: bold; }
+  input, select { padding: 8px; border-radius: 4px; border: 1px solid #004080; background: #001830; color: #fff; font-size: 12px; }
+  input:focus { border-color: #39CCCC; outline: none; }
+  
+  input[readonly], input.auto-filled { background: #002a50; color: #7FDBFF; }
+
+  /* BOTÕES */
+  .btn-area { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+  button { padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 4px; border: none; text-transform: uppercase; font-size: 11px; color: white;}
+  .btn-salvar { background: #0074D9; color: #fff; } .btn-salvar:hover { background: #0056a3; }
+  .btn-print { background: #415a77; } .btn-print:hover { background: #2c3e50; }
+  .btn-backup { background: #059669; } .btn-restore { background: #dc2626; }
+  .btn-filter { background: #b8860b; color: black; }
+  
+  /* NOVAS CLASSES PARA O ALERTA DE 60H */
+  .btn-alert { background: #b91c1c; color: white; border: 1px solid #ffcccc;} 
+  .btn-alert:hover { background: #991b1b; }
+  .linha-atrasada td { background-color: #ffebee !important; color: #c62828 !important; font-weight: bold; }
+
+  /* BARRA DE PESQUISA E CONTADOR */
+  .search-container { margin-top: 20px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px; }
+  #inputBusca { width: 100%; padding: 10px; background: #001226; border: 1px solid #39CCCC; color: white; border-radius: 5px; font-weight: bold; box-sizing: border-box;}
+  #inputBusca::placeholder { color: #7FDBFF; }
+  
+  .contador-box { align-self: flex-start; background: #b8860b; color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 12px; box-shadow: 0 0 8px rgba(184, 134, 11, 0.5); }
+
+  /* TABELA */
+  table { width: 100%; border-collapse: collapse; margin-top: 5px; background: white; color: black; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+  th, td { border: 1px solid #ccc; padding: 6px; text-align: center; font-size: 10px; }
+  th { background: #001f3f; color: white; text-transform: uppercase; letter-spacing: 0.5px; }
+  .col-rumb { background-color: #e0f7fa; font-weight: bold; color: #006064; }
+  .col-pag { color: #d35400; font-weight: bold; }
+  tr:nth-child(even) { background: #f0f8ff; }
+  .btn-baixa { background: #15803d; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 10px; }
+  
+  @media print {
+    .form-container, .btn-area, .search-container, .no-print { display: none; }
+    body { background: white; color: black; padding: 0; }
+    .header { position: relative; border-bottom: 1px solid #000; }
+    th { background: #ddd !important; color: black; border: 1px solid #000; }
+    td { border: 1px solid #000; }
+    table { font-size: 9px; } th, td { padding: 2px; }
   }
-
-  th {
-    background: #ddd !important;
-    color: black;
-  }
-
-  .header {
-    border-bottom: 2px solid black;
-    margin-bottom: 10px;
-  }
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 6px 10px;
-  margin-top: 20px;
-}
-
-.form-grid label {
-  text-align: right;
-  padding-top: 6px;
-  font-weight: bold;
-  font-size: 13px;
-}
-
-.form-grid input {
-  padding: 6px;
-}
-
-.bloco {
-  grid-column: 1 / 3;
-  background: #1f3c88;
-  padding: 6px;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 10px;
-  letter-spacing: 1px;
-}
-
 </style>
 </head>
-
 <body>
 
 <div class="header">
-  <div class="logo-esq">
-    <img src="caveira.png" alt="Caveira RUMB">
-  </div>
-
+  <a href="../dashboard.html"><img src="caveira.png" width="60" alt="RUMB" onerror="this.style.display='none'" title="Voltar ao Painel"></a> 
   <div class="titulo">
-    <h1>LIVRO DE CAUTELA PROEIS – RUMB (UPP PAVÃO)</h1>
+    <h1>Polícia Militar do Estado do Rio de Janeiro</h1>
+    <p>LIVRO DE CAUTELA PROEIS – RUMB (UPP PAVÃO)</p>
   </div>
-
-  <div class="logo-dir">
-    <img src="pmerj.png" alt="PMERJ">
-  </div>
+  <img src="pmerj.png" width="60" alt="PMERJ" onerror="this.style.display='none'">
 </div>
 
-<form id="formCautela" class="form-grid">
+<div class="form-container">
+  <form id="formCautela">
+    <div class="bloco-titulo">1. IDENTIFICAÇÃO DO POLICIAL (PROEIS)</div>
+    <div class="grid-campos">
+      <div class="campo-grupo">
+        <label>RG (Digite para buscar)</label>
+        <input type="text" id="rg" list="lista-rgs" required placeholder="00.000" autocomplete="off">
+        <datalist id="lista-rgs"></datalist>
+      </div>
 
-  <div class="bloco">IDENTIFICAÇÃO DO POLICIAL</div>
+      <div class="campo-grupo" style="flex-grow: 2;">
+        <label>NOME DE GUERRA</label>
+        <input type="text" id="nome" list="lista-nomes" required placeholder="Nome do Policial" autocomplete="off">
+        <datalist id="lista-nomes"></datalist>
+      </div>
 
-  <label>GH</label><input placeholder="GH" required>
-  <label>RG</label><input placeholder="RG" required>
-  <label>Nome</label><input placeholder="Nome" required>
-  <label>Nome da Escala</label><input placeholder="Nome da Escala" required>
+      <div class="campo-grupo">
+        <label>GH</label>
+        <input type="text" id="gh" required placeholder="Ex: SD" class="auto-filled">
+      </div>
+    </div>
 
-  <div class="bloco">ARMAMENTO OU COLETE</div>
+    <div class="bloco-titulo">2. ARMAMENTO E EQUIPAMENTO</div>
+    <div class="grid-campos">
+      <div class="campo-grupo"><label>Nº DA ARMA OU COLETE</label><input type="text" id="arma" required></div>
+      <div class="campo-grupo"><label>MODELO</label><input type="text" id="modelo" required></div>
+      <div class="campo-grupo"><label>QTD. MUNIÇÕES</label><input type="number" id="mun" required style="width:80px"></div>
+      <div class="campo-grupo"><label>QTD. CARREGADORES</label><input type="number" id="car" required style="width:80px"></div>
+    </div>
 
-  <label>Nº da Arma</label><input placeholder="Nº da Arma" required>
-  <label>Modelo</label><input placeholder="Modelo" required>
-  <label>Qtd. Munições</label><input type="number" placeholder="Qtd Munições" required>
-  <label>Qtd. Carregadores</label><input type="number" placeholder="Qtd Carregadores" required>
+    <div class="bloco-titulo">3. CONTROLE DE CAUTELA (RUMB)</div>
+    <div class="grid-campos">
+      <div class="campo-grupo"><label>DATA DA ATIVIDADE</label><input type="date" id="dataAt" required></div>
+      <div class="campo-grupo"><label>DATA DA CAUTELA</label><input type="date" id="dataC" required></div>
+      <div class="campo-grupo"><label>HORA DA CAUTELA</label><input type="time" id="horaC" required></div>
+      <div class="campo-grupo"><label>PÁG. LIVRO</label><input type="text" id="paginaLivro" placeholder="Nº da pág."></div>
+      <div class="campo-grupo" style="flex-grow: 2;"><label style="color: #39CCCC;">RUMB (QUARTILHEIRO)</label><input type="text" id="rumb" required placeholder="Quem está entregando a arma..."></div>
+    </div>
 
-  <div class="bloco">CONTROLE DE CAUTELA – RUMB</div>
+    <div class="btn-area">
+      <button type="submit" class="btn-salvar">📝 REGISTRAR CAUTELA</button>
+      <button type="button" class="btn-filter" onclick="mostrarAbertas()">🔴 VER APENAS ABERTAS</button>
+      <button type="button" class="btn-filter" onclick="render()">📘 VER TODAS</button>
+      <button type="button" class="btn-alert" onclick="alertaAtrasos(true)">🚨 VERIFICAR ATRASOS (60H)</button>
+      <button type="button" class="btn-print" onclick="window.print()">🖨️ IMPRIMIR</button>
+      <button type="button" class="btn-backup" onclick="exportarBackup()">💾 SALVAR BACKUP</button>
+      <input type="file" id="fileBackup" style="display:none" onchange="importarBackup(this)">
+      <button type="button" class="btn-restore" onclick="document.getElementById('fileBackup').click()">📂 IMPORTAR</button>
+    </div>
+  </form>
+</div>
 
-  <label>Data da Atividade</label><input type="date" required>
-  <label>Data da Cautela</label><input type="date" required>
-  <label>Hora da Cautela</label><input type="time" required>
-  <label>RUMB</label><input placeholder="Escreva seu nome aqui Quartilheiro" required>
-
-  <div></div>
-  <button type="submit">Registrar Cautela</button>
-<br>
-<button onclick="window.print()">🖨️ IMPRIMIR / GERAR PDF</button>
-</form>
-
-
-<button onclick="mostrarAbertas()">🔴 VER CAUTELAS EM ABERTO</button>
-<button onclick="render()">📘 VER TODAS</button>
-
+<div class="search-container">
+  <div class="contador-box" id="contadorAbertas">🚨 CAUTELAS EM ABERTO: 0</div>
+  <input type="text" id="inputBusca" placeholder="🔍 BUSCAR REGISTRO (Digite RG, Nome, Arma, Pág., Data ou RUMB...)" onkeyup="filtrarTabela()">
+</div>
 
 <table id="tabela">
-<thead>
-<tr>
-<th>GH</th><th>RG</th><th>Nome</th><th>Escala</th><th>Nº Arma</th><th>Modelo</th>
-<th>Munições</th><th>Carregadores</th>
-<th>Data Ativ.</th><th>Data Caut.</th><th>Hora Caut.</th>
-<th>Data Ent.</th><th>Hora Ent.</th><th>RUMB</th><th>RUMB ENTREGA</th>
-<th>Status</th><th>Ação</th>
-</tr>
-</thead>
-<tbody></tbody>
+  <thead>
+    <tr>
+      <th colspan="3" style="background:#001f3f">IDENTIFICAÇÃO</th>
+      <th colspan="4">ARMAMENTO</th>
+      <th colspan="5" style="background:#0074D9">CAUTELA (SAÍDA)</th> <th colspan="4" style="background:#15803d; color:white">DEVOLUÇÃO (BAIXA)</th>
+    </tr>
+    <tr>
+      <th>GH</th><th>RG</th><th>NOME</th>
+      <th>ARMA/COLETE</th><th>MODELO</th><th>MUN.</th><th>CAR.</th>
+      <th>DATA ATIV.</th><th>DATA CAUT.</th><th>HORA</th><th>PÁG.</th><th>RUMB</th> <th>DT. ENT.</th><th>HR. ENT.</th><th>RUMB ENTREGA</th><th>AÇÃO</th>
+    </tr>
+  </thead>
+  <tbody id="tabelaCorpo"></tbody>
 </table>
 
 <script>
-const escalaRUMB = [
-  { nome: "LACERDA", inicio: "2026-01-23T05:00", fim: "2026-01-23T17:00" },
-  { nome: "R. SIMÕES", inicio: "2026-01-23T17:00", fim: "2026-01-24T05:00" },
-
-  { nome: "ALACRINO", inicio: "2026-01-24T05:00", fim: "2026-01-24T17:00" },
-  { nome: "LACERDA", inicio: "2026-01-24T17:00", fim: "2026-01-25T05:00" },
-
-  { nome: "TRIUMPHO", inicio: "2026-01-25T05:00", fim: "2026-01-25T17:00" },
-  { nome: "ALACRINO", inicio: "2026-01-25T17:00", fim: "2026-01-26T05:00" },
-
-  { nome: "DAN", inicio: "2026-01-26T05:00", fim: "2026-01-26T17:00" },
-  { nome: "TRIUMPHO", inicio: "2026-01-26T17:00", fim: "2026-01-27T05:00" },
-
-  { nome: "R. SIMÕES", inicio: "2026-01-27T05:00", fim: "2026-01-27T17:00" },
-  { nome: "DAN", inicio: "2026-01-27T17:00", fim: "2026-01-28T05:00" }
+// --- BANCO DE DADOS DO EFETIVO ---
+const databaseEfetivo = [
+  { gh: "SUB PM", rg: "68831", nome: "GOMES" },
+  { gh: "CB PM", rg: "101823", nome: "S. LEMOS" },
+  { gh: "SD PM", rg: "110297", nome: "L. BARBOSA" },
+  { gh: "CB PM", rg: "106260", nome: "BAPTISTA" },
+  { gh: "3º SGT PM", rg: "91071", nome: "DIAS" },
+  { gh: "CB PM", rg: "108786", nome: "TORRES" },
+  { gh: "3º SGT PM", rg: "99488", nome: "DE PAULA" },
+  { gh: "3º SGT PM", rg: "91665", nome: "R. ALCANTARA" },
+  { gh: "3º SGT PM", rg: "100032", nome: "R. LACERDA" },
+  { gh: "1º SGT PM", rg: "77614", nome: "ALZIR" },
+  { gh: "SUBTEN PM", rg: "66381", nome: "J. MARCELO" },
+  { gh: "3º SGT PM", rg: "94010", nome: "R. SIMÕES" },
+  { gh: "3º SGT PM", rg: "97196", nome: "DAN" },
+  { gh: "CB PM", rg: "106561", nome: "MARCOS" },
+  { gh: "3º SGT PM", rg: "99242", nome: "ADRIEL" },
+  { gh: "CB PM", rg: "105249", nome: "R. FILHO" },
+  { gh: "CB PM", rg: "102712", nome: "JOAQUIM" },
+  { gh: "3º SGT PM", rg: "100360", nome: "ULISSES" },
+  { gh: "CB PM", rg: "105375", nome: "RANGEL" },
+  { gh: "CB PM", rg: "102181", nome: "JUNIOR" },
+  { gh: "CB PM", rg: "106533", nome: "CORTEZ" },
+  { gh: "3º SGT PM", rg: "98121", nome: "JOHNATHAN" },
+  { gh: "3º SGT PM", rg: "96990", nome: "CLEISON" },
+  { gh: "CB PM", rg: "104197", nome: "DA SILVA" },
+  { gh: "3º SGT PM", rg: "98408", nome: "NASCIMENTO" },
+  { gh: "3º SGT PM", rg: "93752", nome: "CARDOSO" },
+  { gh: "2º SGT PM", rg: "85458", nome: "SANTOS" },
+  { gh: "CB PM", rg: "107510", nome: "DA SILVA" },
+  { gh: "SD PM", rg: "110796", nome: "ERICA" },
+  { gh: "2º SGT PM", rg: "83708", nome: "A. MENDES" },
+  { gh: "3º SGT PM", rg: "98607", nome: "SOUZA" },
+  { gh: "CB PM", rg: "102704", nome: "J. ANDRÉ" },
+  { gh: "CB PM", rg: "106351", nome: "M. ARAUJO" },
+  { gh: "CB PM", rg: "103727", nome: "BIZONI" },
+  { gh: "3º SGT PM", rg: "93998", nome: "F. PERES" },
+  { gh: "CB PM", rg: "107520", nome: "T. RODRIGUES" },
+  { gh: "CB PM", rg: "107561", nome: "COUTINHO" },
+  { gh: "CB PM", rg: "108292", nome: "JULIANO" },
+  { gh: "SD PM", rg: "110387", nome: "JOSUÉ" },
+  { gh: "CB PM", rg: "108824", nome: "CARMO" },
+  { gh: "CB PM", rg: "107805", nome: "M. PAULO" },
+  { gh: "3º SGT PM", rg: "98339", nome: "SOUZA" },
+  { gh: "3º SGT PM", rg: "95629", nome: "FULLY" },
+  { gh: "CB PM", rg: "104953", nome: "PINHEIRO" },
+  { gh: "CB PM", rg: "103051", nome: "TIRADENTES" },
+  { gh: "CB PM", rg: "104291", nome: "FELIX" },
+  { gh: "2º SGT PM", rg: "86615", nome: "ISAIAS" },
+  { gh: "1º SGT PM", rg: "73888", nome: "COIMBRA" },
+  { gh: "3º SGT PM", rg: "93331", nome: "FERREIRA" },
+  { gh: "3º SGT PM", rg: "98596", nome: "VIDAL" },
+  { gh: "CB PM", rg: "108190", nome: "UERBERT" },
+  { gh: "CB PM", rg: "102190", nome: "D. SILVA" },
+  { gh: "SD PM", rg: "110594", nome: "JULIANA FERREIRA" },
+  { gh: "SUBTEN PM", rg: "65727", nome: "SANTANA" },
+  { gh: "CB PM", rg: "105341", nome: "AZEVEDO" },
+  { gh: "3º SGT PM", rg: "100228", nome: "MIRANDA" },
+  { gh: "3º SGT PM", rg: "99791", nome: "ALMEIDA" },
+  { gh: "CB PM", rg: "105284", nome: "LEONARDO" },
+  { gh: "CB PM", rg: "109067", nome: "CAMILO" },
+  { gh: "CB PM", rg: "106467", nome: "L. SILVA" },
+  { gh: "SD PM", rg: "109738", nome: "MARIANO" },
+  { gh: "CB PM", rg: "105248", nome: "DE SOUZA" },
+  { gh: "3º SGT PM", rg: "93168", nome: "F. ABREU" },
+  { gh: "CB PM", rg: "109109", nome: "RODRIGUES" },
+  { gh: "SD PM", rg: "110470", nome: "TELES" },
+  { gh: "CB PM", rg: "108677", nome: "ÉDVAN" },
+  { gh: "3º SGT PM", rg: "91049", nome: "JHONATHAN" },
+  { gh: "2º SGT PM", rg: "86367", nome: "REGALDINO" },
+  { gh: "2º SGT PM", rg: "85426", nome: "BRITO" },
+  { gh: "3º SGT PM", rg: "93606", nome: "A. ALCANTARA" },
+  { gh: "CB PM", rg: "109510", nome: "MAGANO" },
+  { gh: "CB PM", rg: "109414", nome: "BIANCHI" },
+  { gh: "SD PM", rg: "109754", nome: "CAMELO" },
+  { gh: "SUBTEN PM", rg: "70372", nome: "MENDES" },
+  { gh: "SD PM", rg: "110433", nome: "D. SANTOS" },
+  { gh: "3º SGT PM", rg: "95714", nome: "MALAQUIAS" },
+  { gh: "SUBTEN PM", rg: "76452", nome: "WAGNER" },
+  { gh: "3º SGT PM", rg: "93081", nome: "GUEDES" },
+  { gh: "3º SGT PM", rg: "92119", nome: "CAIO" },
+  { gh: "3º SGT PM", rg: "100000", nome: "ALACRINO" },
+  { gh: "3º SGT PM", rg: "99164", nome: "R. MACHADO" },
+  { gh: "3º SGT PM", rg: "91783", nome: "CHARLES" },
+  { gh: "CB PM", rg: "106348", nome: "SOARES" },
+  { gh: "3º SGT PM", rg: "92732", nome: "MARCIO ESTEVÃO" },
+  { gh: "CB PM", rg: "105377", nome: "F. RIBEIRO" },
+  { gh: "SD PM", rg: "108664", nome: "SOUSA SILVA" },
+  { gh: "CB PM", rg: "105374", nome: "LAIA" },
+  { gh: "3º SGT PM", rg: "92490", nome: "VALIM" },
+  { gh: "CB PM", rg: "106650", nome: "MATHEUS" },
+  { gh: "3º SGT PM", rg: "96287", nome: "RODRIGUES" },
+  { gh: "2º SGT PM", rg: "85664", nome: "DENILSON" },
+  { gh: "3º SGT PM", rg: "92258", nome: "DOMINGOS" },
+  { gh: "3º SGT PM", rg: "93341", nome: "L. FRANCISCO" },
+  { gh: "SD PM", rg: "109908", nome: "TRIUMPHO" },
+  { gh: "3º SGT PM", rg: "91131", nome: "CONDE" },
+  { gh: "CB PM", rg: "101752", nome: "TRINDADE" },
+  { gh: "3º SGT PM", rg: "91115", nome: "ITALO" },
+  { gh: "3º SGT PM", rg: "96003", nome: "JONATHA" },
+  { gh: "CB PM", rg: "105391", nome: "HENRIQUE" },
+  { gh: "CB PM", rg: "106037", nome: "CAIQUE" },
+  { gh: "3º SGT PM", rg: "98202", nome: "CRISTIANO" },
+  { gh: "3º SGT PM", rg: "99226", nome: "M. JUNIOR" },
+  { gh: "3º SGT PM", rg: "96541", nome: "SILVEIRA" },
+  { gh: "2º SGT PM", rg: "85995", nome: "VINICIUS" },
+  { gh: "3º SGT PM", rg: "99199", nome: "CARDOSO" },
+  { gh: "SUBTEN PM", rg: "68832", nome: "PAULO CÉSAR" }
 ];
 
-function obterRUMBAtual() {
-  const agora = new Date();
-  const turno = escalaRUMB.find(e =>
-    agora >= new Date(e.inicio) && agora <= new Date(e.fim)
-  );
-  return turno ? turno.nome : "FORA DA ESCALA";
-}
-</script>
+function initAutocomplete() {
+  const dlRg = document.getElementById('lista-rgs');
+  const dlNome = document.getElementById('lista-nomes');
+  databaseEfetivo.forEach(p => {
+    const optR = document.createElement('option');
+    optR.value = p.rg;
+    optR.label = `${p.nome} (${p.gh})`;
+    dlRg.appendChild(optR);
 
-
-<script>
-const form = document.getElementById("formCautela");
-const tabela = document.querySelector("#tabela tbody");
-
-let dados = JSON.parse(localStorage.getItem("livroCautela")) || [];
-
-function salvar() {
-  localStorage.setItem("livroCautela", JSON.stringify(dados));
-}
-
-function render() {
-  tabela.innerHTML = "";
-  dados.forEach((d, i) => {
-    const tr = document.createElement("tr");
-    tr.className = d.status;
-  tr.innerHTML = `
-<td>${d.gh}</td>
-<td>${d.rg}</td>
-<td>${d.nome}</td>
-<td>${d.escala}</td>
-<td>${d.arma}</td>
-<td>${d.modelo}</td>
-<td>${d.mun}</td>
-<td>${d.car}</td>
-<td>${d.dataAt}</td>
-<td>${d.dataC}</td>
-<td>${d.horaC}</td>
-<td>${d.dataE || ""}</td>
-<td>${d.horaE || ""}</td>
-<td>${d.rumb}</td>
-<td>${d.rumbEntrega || ""}</td>
-<td>${d.status}</td>
-
-<td>
-  ${d.status === "Cautelado"
-    ? `<button onclick="entregar(${i})">Entregar</button>`
-    : ""}
-</td>`;
-
-    tabela.appendChild(tr);
+    const optN = document.createElement('option');
+    optN.value = p.nome;
+    optN.label = `${p.gh} - RG: ${p.rg}`;
+    dlNome.appendChild(optN);
   });
 }
 
+const inputRg = document.getElementById('rg');
+const inputNome = document.getElementById('nome');
+const inputGh = document.getElementById('gh');
+
+inputRg.addEventListener('input', function() {
+  const val = this.value;
+  const found = databaseEfetivo.find(p => p.rg === val);
+  if (found) { inputNome.value = found.nome; inputGh.value = found.gh; }
+});
+
+inputNome.addEventListener('input', function() {
+  const val = this.value;
+  const found = databaseEfetivo.find(p => p.nome === val);
+  if (found) { inputRg.value = found.rg; inputGh.value = found.gh; }
+});
+
+initAutocomplete();
+
+// --- ESCALA RUMB (10 Turnos de 12 horas) ---
+const dbRumb = {
+    triumpho: { posto: "SD PM", nome: "TRIUMPHO" },
+    simoes: { posto: "3º SGT PM", nome: "R. SIMÕES" },
+    dan: { posto: "3º SGT PM", nome: "DAN" },
+    lacerda: { posto: "3º SGT PM", nome: "LACERDA" },
+    alacrino: { posto: "3º SGT PM", nome: "ALACRINO" }
+};
+
+const sequenciaEscala = [
+    dbRumb.dan,      // 0: 26/01 05h
+    dbRumb.triumpho, // 1: 26/01 17h
+    dbRumb.simoes,   // 2: 27/01 05h
+    dbRumb.dan,      // 3: 27/01 17h
+    dbRumb.lacerda,  // 4: 28/01 05h
+    dbRumb.simoes,   // 5: 28/01 17h
+    dbRumb.alacrino, // 6: 29/01 05h
+    dbRumb.lacerda,  // 7: 29/01 17h
+    dbRumb.triumpho, // 8: 30/01 05h
+    dbRumb.alacrino  // 9: 30/01 17h
+];
+
+// Data Âncora: Turno 0 iniciou em 26 de Janeiro de 2026 às 05:00
+const dataAncora = new Date(2026, 0, 26, 5, 0, 0);
+
+// --- LÓGICA DE ATUALIZAÇÃO AUTOMÁTICA DO RUMB ---
+function atualizarRumbAutomatico() {
+    const inputData = document.getElementById('dataC').value;
+    const inputHora = document.getElementById('horaC').value;
+
+    if (!inputData || !inputHora) return;
+
+    const partesData = inputData.split('-');
+    const partesHora = inputHora.split(':');
+    
+    const dataSelecionada = new Date(
+        partesData[0], 
+        partesData[1] - 1, 
+        partesData[2], 
+        partesHora[0], 
+        partesHora[1], 
+        0
+    );
+
+    const diffMs = dataSelecionada.getTime() - dataAncora.getTime();
+    const diffHoras = Math.floor(diffMs / (1000 * 60 * 60));
+    const offsetTurnos = Math.floor(diffHoras / 12);
+    const indiceTurno = ((offsetTurnos % 10) + 10) % 10;
+
+    document.getElementById('rumb').value = sequenciaEscala[indiceTurno].nome;
+}
+
+const form = document.getElementById("formCautela");
+const tabela = document.querySelector("#tabelaCorpo");
+let dados = JSON.parse(localStorage.getItem("livroCautela_PROEIS")) || [];
 
 form.onsubmit = e => {
   e.preventDefault();
-
-  const v = [...form.querySelectorAll("input")].map(i => i.value);
-
-  const existeAberta = dados.some(d =>
-    d.rg === v[1] && d.status === "Cautelado"
-  );
-
-  if (existeAberta) {
-    alert("ATENÇÃO: Este policial já possui cautela em aberto.");
-    return;
-  }
-
-  dados.push({
-    gh:v[0], rg:v[1], nome:v[2], escala:v[3],
-    arma:v[4], modelo:v[5], mun:v[6], car:v[7],
-    dataAt:v[8], dataC:v[9], horaC:v[10],
-    rumb:v[11], status:"Cautelado"
-  });
-
+  const novo = {
+    gh: document.getElementById('gh').value.toUpperCase(),
+    rg: document.getElementById('rg').value,
+    nome: document.getElementById('nome').value.toUpperCase(),
+    arma: document.getElementById('arma').value.toUpperCase(),
+    modelo: document.getElementById('modelo').value.toUpperCase(),
+    mun: document.getElementById('mun').value,
+    car: document.getElementById('car').value,
+    dataAt: document.getElementById('dataAt').value, 
+    dataC: document.getElementById('dataC').value,
+    horaC: document.getElementById('horaC').value,
+    paginaLivro: document.getElementById('paginaLivro').value, // Novo campo capturado
+    rumb: document.getElementById('rumb').value.toUpperCase(),
+    status: "Cautelado"
+  };
+  const existeAberta = dados.some(d => d.rg === novo.rg && d.status === "Cautelado");
+  if (existeAberta) { alert("ATENÇÃO: Este policial já possui cautela em aberto."); return; }
+  dados.push(novo);
   salvar();
   render();
   form.reset();
+
+  // Reseta Data, Hora e RUMB para "Agora" após salvar
+  document.getElementById('dataAt').valueAsDate = new Date();
+  document.getElementById('dataC').valueAsDate = new Date();
+  document.getElementById('horaC').value = new Date().toLocaleTimeString('pt-BR').slice(0,5);
+  atualizarRumbAutomatico();
+
+  document.getElementById('rg').focus();
 };
 
+function entregar(index) {
+  let agora = new Date();
 
-function entregar(i) {
-  const agora = new Date();
+  // 1. Solicita a Data
+  const dataCInput = prompt("Informe a data da baixa (DD/MM/AAAA) ou deixe em branco para assumir a data atual:");
+  if (dataCInput) {
+      const regexDataC = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+      if(regexDataC.test(dataCInput)){
+         const partes = dataCInput.split('/');
+         agora = new Date(partes[2], partes[1] - 1, partes[0], agora.getHours(), agora.getMinutes(), agora.getSeconds());
+      } else {
+          alert('Formato de data inválido. Assumindo a data atual.');
+      }
+  }
 
-  dados[i].dataE = agora.toLocaleDateString();
-  dados[i].horaE = agora.toLocaleTimeString().slice(0,5);
-  dados[i].rumbEntrega = obterRUMBAtual();
-  dados[i].status = "Entregue";
+  // 2. Solicita a Hora (já vem com a hora atual como sugestão)
+  const horaAtual = agora.toLocaleTimeString('pt-BR').slice(0,5);
+  const horaCInput = prompt("Informe a hora da baixa (HH:MM) ou deixe em branco para assumir a hora atual:", horaAtual);
+  
+  if (horaCInput) {
+      const regexHora = /^(\d{2}):(\d{2})$/;
+      if(regexHora.test(horaCInput)){
+         const partesHora = horaCInput.split(':');
+         agora.setHours(partesHora[0], partesHora[1], 0);
+      } else {
+          alert('Formato de hora inválido. Assumindo a hora atual.');
+      }
+  }
 
+  // Lógica para achar quem está de serviço no momento do recebimento (ou da data informada)
+  const diffMs = agora.getTime() - dataAncora.getTime();
+  const diffHoras = Math.floor(diffMs / (1000 * 60 * 60));
+  const offsetTurnos = Math.floor(diffHoras / 12);
+  const indiceTurno = ((offsetTurnos % 10) + 10) % 10; 
+  const sugestao = sequenciaEscala[indiceTurno].nome;
+
+  // Pergunta quem está recebendo o material confirmando data e hora
+  const nomeRumb = prompt(`Baixando em ${agora.toLocaleDateString('pt-BR')} às ${agora.toLocaleTimeString('pt-BR').slice(0,5)}.\n\nInforme o RUMB que está recebendo o material:`, sugestao);
+
+  // Se o usuário clicar em Cancelar ou deixar vazio, aborta
+  if (nomeRumb === null || nomeRumb.trim() === "") {
+      alert("Baixa cancelada: É necessário informar quem recebeu o material.");
+      return;
+  }
+
+  // Salva no banco de dados com a data e hora ajustadas
+  dados[index].dataE = agora.toLocaleDateString('pt-BR');
+  dados[index].horaE = agora.toLocaleTimeString('pt-BR').slice(0,5);
+  dados[index].rumbEntrega = nomeRumb.toUpperCase();
+  dados[index].status = "Entregue";
+  
   salvar();
   render();
 }
 
+function salvar() { localStorage.setItem("livroCautela_PROEIS", JSON.stringify(dados)); }
 
-function mostrarAbertas() {
-  tabela.innerHTML = "";
-  dados
-    .filter(d => d.status === "Cautelado")
-    .forEach((d, i) => {
-      const tr = document.createElement("tr");
-      tr.className = "cautelado";
-      tr.innerHTML = `
-      <td>${d.gh}</td>
-      <td>${d.rg}</td>
-      <td>${d.nome}</td>
-      <td>${d.escala}</td>
-      <td>${d.arma}</td>
-      <td>${d.modelo}</td>
-      <td>${d.mun}</td>
-      <td>${d.car}</td>
-      <td>${d.dataAt}</td>
-      <td>${d.dataC}</td>
-      <td>${d.horaC}</td>
-      <td></td>
-      <td></td>
-      <td>${d.rumb}</td>
-      <td>${d.status}</td>
-      <td><button onclick="entregar(${i})">Entregar</button></td>`;
-      tabela.appendChild(tr);
-    });
+function filtrarTabela() {
+  const termo = document.getElementById('inputBusca').value.toUpperCase();
+  const linhas = document.querySelectorAll('#tabelaCorpo tr');
+  linhas.forEach(linha => {
+      const textoLinha = linha.innerText.toUpperCase();
+      if(textoLinha.includes(termo)) { linha.style.display = ''; } else { linha.style.display = 'none'; }
+  });
 }
 
+// --- SISTEMA DE ALERTA DE 60 HORAS ---
+function verificaAtraso60h(dataC, horaC) {
+  if (!dataC || !horaC) return false;
+  const dataCautela = new Date(`${dataC}T${horaC}`);
+  const agora = new Date();
+  const diferencaMs = agora - dataCautela;
+  const diferencaHoras = diferencaMs / (1000 * 60 * 60);
+  return diferencaHoras >= 60;
+}
+
+function alertaAtrasos(cliqueManual = false) {
+  const atrasados = dados.filter(d => d.status === "Cautelado" && verificaAtraso60h(d.dataC, d.horaC));
+  
+  if (atrasados.length > 0) {
+    alert(`🚨 ALERTA DO ARMAMENTO:\n\nExistem ${atrasados.length} cautela(s) com MAIS DE 60 HORAS em aberto!\nAs linhas correspondentes estão destacadas em vermelho na tabela.`);
+  } else if (cliqueManual) {
+    alert("✅ Tudo em ordem. Nenhuma cautela com mais de 60 horas em aberto.");
+  }
+}
+
+// --- PROTEÇÃO ADCIONADA AQUI (Dados em falta não quebram a tela) ---
+function render(filtroAbertas = false) {
+  tabela.innerHTML = "";
+  const listaExibicao = filtroAbertas ? dados.filter(d => d.status === "Cautelado") : dados;
+  
+  // Atualiza o contador de Abertas
+  const abertasCount = dados.filter(d => d.status === "Cautelado").length;
+  document.getElementById("contadorAbertas").innerText = `🚨 CAUTELAS EM ABERTO: ${abertasCount}`;
+  
+  listaExibicao.slice().reverse().forEach((d) => {
+    const indexReal = dados.indexOf(d);
+    
+    // Proteção: Se a data não existir no backup antigo, ele coloca um "-" ao invés de quebrar
+    const dataAtFormatada = (d.dataAt && d.dataAt.includes('-')) ? d.dataAt.split('-').reverse().join('/') : (d.dataAt || "-");
+    const dataCFormatada = (d.dataC && d.dataC.includes('-')) ? d.dataC.split('-').reverse().join('/') : (d.dataC || "-");
+    
+    const tr = document.createElement("tr");
+    
+    // VERIFICAÇÃO DE CORES E STATUS
+    if(d.status === "Entregue") { 
+      tr.style.opacity = "0.6"; 
+      tr.style.background = "#e0ffe0"; 
+    } else if (d.status === "Cautelado" && verificaAtraso60h(d.dataC, d.horaC)) {
+      tr.className = "linha-atrasada";
+    }
+
+    tr.innerHTML = `
+      <td>${d.gh || "-"}</td> <td>${d.rg || "-"}</td> <td style="text-align:left; font-weight:bold">${d.nome || "-"}</td>
+      <td>${d.arma || "-"}</td> <td>${d.modelo || "-"}</td> <td>${d.mun || "-"}</td> <td>${d.car || "-"}</td>
+      <td>${dataAtFormatada}</td> <td>${dataCFormatada}</td> <td>${d.horaC || "-"}</td>
+      <td class="col-pag">${d.paginaLivro || "-"}</td> 
+      <td class="col-rumb">${d.rumb || "-"}</td>
+      <td>${d.dataE || ""}</td> <td>${d.horaE || ""}</td> <td class="col-rumb">${d.rumbEntrega || ""}</td>
+      <td>${d.status === "Cautelado" ? `<button class="btn-baixa" onclick="entregar(${indexReal})">BAIXAR</button>` : "OK"}</td>`;
+    tabela.appendChild(tr);
+  });
+  filtrarTabela();
+}
+
+function mostrarAbertas() { render(true); }
+
+function exportarBackup() {
+  const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `Livro_Cautela_PROEIS_rumb-${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.json`;
+  a.click();
+}
+
+// --- PROTEÇÃO ADCIONADA AQUI (Destrava o botão de input de arquivo) ---
+function importarBackup(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+        const json = JSON.parse(e.target.result);
+        if(confirm("Deseja substituir a tabela atual pelos dados do backup?")) {
+            dados = json; 
+            salvar(); 
+            render(); 
+            alert("Backup importado com sucesso.");
+        }
+    } catch(err) { 
+        alert("Erro ao importar. O arquivo pode estar corrompido."); 
+    } finally {
+        // Isso permite que você importe o mesmo arquivo novamente se precisar
+        input.value = ""; 
+    }
+  };
+  reader.readAsText(file);
+}
+
+// Inicializa a tabela
+render();
+// Dispara o alerta automaticamente meio segundo após a página carregar
+setTimeout(() => alertaAtrasos(false), 500); 
+
+// INICIALIZA CAMPOS DE DATA, HORA E RUMB AUTOMÁTICO
+document.getElementById('dataAt').valueAsDate = new Date();
+document.getElementById('dataC').valueAsDate = new Date();
+document.getElementById('horaC').value = new Date().toLocaleTimeString('pt-BR').slice(0,5);
+atualizarRumbAutomatico();
+
+// Monitora mudanças para atualizar em tempo real
+document.getElementById('dataC').addEventListener('change', atualizarRumbAutomatico);
+document.getElementById('horaC').addEventListener('change', atualizarRumbAutomatico);
+
 </script>
-
-
 </body>
 </html>
